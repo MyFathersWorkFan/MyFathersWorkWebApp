@@ -1,0 +1,146 @@
+﻿@page "/Gameplay"
+@using MyFathersWorkWebApp.Shared
+
+<div class="header-buttons" xmlns="http://www.w3.org/1999/html">
+    <div class="back-button" @onclick="GoBack">⬅</div>
+    <div class="pause-button" @onclick="Pause">⏸</div>
+</div>
+
+<div class="round-tracker">
+    @for (int i = 0; i < _RoundLabels.Length; i++)
+    {
+        bool isFuture = i > CurrentRoundIndex;
+        string genClass = i switch
+        {
+            <= 2 => "generation1",
+            <= 5 => "generation2",
+            <= 8 => "generation3",
+            _    => ""
+        };
+
+        <div class="round-step @(genClass) @(isFuture ? "future" : "") @(i == CurrentRoundIndex ? "current" : "")">
+            @_RoundLabels[i]
+        </div>
+    }
+</div>
+
+<div class="gameplay-container">
+
+    @if (GlobalData.ActiveWindow != null)
+    {
+        <h1>@GlobalData.ActiveWindow.Title.InsertImages().AsMarkup()</h1>
+
+        @if (GlobalData.ActiveWindow.Subtitle != string.Empty)
+        {
+            <h2>@GlobalData.ActiveWindow.Subtitle.InsertImages().AsMarkup()</h2>
+        }
+
+        <div class="parchment-box">
+            @foreach (GameplayElement element in GlobalData.ActiveWindow.Elements)
+            {
+                if (element.FromNewLine)
+                {
+                    <br /><br />
+                }
+                
+                if (element.Callback == null)
+                {
+                    @element.Content.InsertImages().AsMarkup()
+                }
+                else
+                {
+                    <a @onclick="() => InvokeWindowCallback(element.Callback)">[@element.Content]</a>
+                }
+            }
+        </div>
+    }
+    else if (GlobalData.ActiveHub != null)
+    {
+        <h1>@GlobalData.ActiveHub.Title.InsertImages().AsMarkup()</h1>
+
+        @if (GlobalData.ActiveHub.Subtitle != string.Empty)
+        {
+            <h2>@GlobalData.ActiveHub.Subtitle.InsertImages().AsMarkup()</h2>
+        }
+
+        foreach (GameplayHubSection hubSection in GlobalData.ActiveHub.Sections)
+        {
+            @if (hubSection.ShouldShow())
+            {
+                <div class="@(hubSection.Main ? "main-panel" : "section-panel")">
+                    @if (hubSection.Main)
+                    {
+                        <h3>@hubSection.Title.InsertImages().AsMarkup()</h3>
+                    }
+                    else
+                    {
+                        <h4>@hubSection.Title.InsertImages().AsMarkup()</h4>
+                    }
+
+                    @foreach (GameplayElement element in hubSection.Elements)
+                    {
+                        if (element.FromNewLine)
+                        {
+                            <br /><br />
+                        }
+                
+                        if (element.Callback == null)
+                        {
+                            @element.Content.InsertImages().AsMarkup()
+                        }
+                        else
+                        {
+                            <a class="gameplay-link" @onclick="() => InvokeWindowCallback(element.Callback)">[@element.Content]</a>
+                        }
+                    }
+                </div>
+            }
+        }
+    }
+
+</div>
+
+@if (GlobalData.ActivePopup != null)
+{
+    <InfoPopup GlobalData=@GlobalData GameplayPopUp=@GlobalData.ActivePopup Refresh=Refresh/>
+}
+
+@if (GlobalData.ActiveInputPopup != null)
+{
+    <InputPopup GlobalData=@GlobalData GameplayPopUp=@GlobalData.ActiveInputPopup Refresh=Refresh/>
+}
+
+@code
+{
+    [CascadingParameter] private GlobalData GlobalData { get; set; } = null!;
+
+    private readonly string[] _RoundLabels =
+    [
+        "I - 1", "I - 2", "I - 3",
+        "II - 1", "II - 2", "II - 3",
+        "III - 1", "III - 2", "III - 3"
+    ];
+
+    private int CurrentRoundIndex => (int)GlobalData.Generation * 3 + (int)GlobalData.Years;
+
+    private void GoBack()
+    {
+        Console.WriteLine("Undo");
+    }
+
+    private void Pause()
+    {
+        Console.WriteLine("Paused");
+    }
+
+    private void Refresh()
+    {
+        StateHasChanged();
+    }
+
+    private void InvokeWindowCallback(Action<GlobalData> nextCallback)
+    {
+        GlobalData.ActiveWindow = null;
+        nextCallback.Invoke(GlobalData);
+    }
+}

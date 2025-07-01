@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "MyFathersWorkWebApp",
   "resources": {
-    "hash": "sha256-X3gWOv6SPX49T5KGKUw+IhcjOLuFOvIkKxlwntU79So=",
+    "hash": "sha256-/oNzqKks6w93xIDKIiOUXBlmFZ62Ej1EY5kl0rui5jU=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.n7we7nbch1.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.waskkzx0nn.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -194,7 +194,7 @@
       "mscorlib.ypkr78tz1c.wasm": "mscorlib.wasm",
       "netstandard.ifx8vojh9u.wasm": "netstandard.wasm",
       "System.Private.CoreLib.gcclii65ud.wasm": "System.Private.CoreLib.wasm",
-      "MyFathersWorkWebApp.angqds14nj.wasm": "MyFathersWorkWebApp.wasm",
+      "MyFathersWorkWebApp.y3eq8n0tra.wasm": "MyFathersWorkWebApp.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.uhsveqo9bs.js": "dotnet.native.js",
       "dotnet.native.swgexbmoy7.wasm": "dotnet.native.wasm",
@@ -411,7 +411,7 @@
       "WindowsBase.pe1q66fox7.wasm": "sha256-X+jubl681x6U1UjhhKVz+cjOvMv1wDBWIyyFenqJnPc=",
       "mscorlib.ypkr78tz1c.wasm": "sha256-Wkc7KpMw/bTWNoLCRv9T8olIOmCpEiJSeUZsUQEnwrA=",
       "netstandard.ifx8vojh9u.wasm": "sha256-PqpRCbO73PFsE8ik5zmAuG1kKax3c7bGhjOOeuiUcyY=",
-      "MyFathersWorkWebApp.angqds14nj.wasm": "sha256-xgP1HhrddF013dP9gO71FgphA6G4x0mDQ3ZlMnbpPc4="
+      "MyFathersWorkWebApp.y3eq8n0tra.wasm": "sha256-EjL7bUDTu9b/XslwD0glpvalhtQGTy6Wt2jBja57PTE="
     }
   },
   "cacheBootResources": true,
